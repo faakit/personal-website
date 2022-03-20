@@ -13,7 +13,7 @@ export default function Home() {
       <main>
         <Flex
           w="100vw"
-          h="100vh"
+          h={["auto","100vh"]}
           direction="column"
           align="center"
           justify="center"
@@ -23,7 +23,7 @@ export default function Home() {
             bg="gray.100"
             borderRadius={10}
             boxShadow="dark-lg"
-            pt="3rem"
+            pt={["0","3rem"]}
             pb="5rem"
           >
             <Box
