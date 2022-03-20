@@ -1,12 +1,18 @@
 import { Avatar, Button, Flex, HStack, Icon, Text } from "@chakra-ui/react";
 import { RiArchiveFill, RiGithubFill, RiLinkedinBoxFill } from "react-icons/ri";
+import { ContactModal } from "../ContactModal";
 import { IconLink } from "./IconLink";
 
 export function AboutMe() {
     return (
-        <Flex justifyContent="space-between" pt="2.5rem" direction={["column", "row"]}>
+        <Flex 
+        justifyContent="space-between" 
+        pt="2.5rem" 
+        direction={["column", "row"]}
+        align="center"
+        >
             <Flex direction="column">
-                <Text fontSize="xl" pb="2">Olá, sou André</Text>
+                <Text fontSize="xl" pb="2">Olá, sou André.</Text>
                 <Text
                     fontSize="5xl"
                     fontWeight="semibold"
@@ -35,21 +41,10 @@ export function AboutMe() {
                     >
                         Portfolio
                     </Button>
-                    <Button
-                        size="lg"
-                        variant="solid"
-                        bgColor="gray.800"
-                        color="white"
-                        _hover={{
-                            bgColor: "gray.500"
-                        }}
-                        boxShadow="dark-lg"
-                    >
-                        Contato
-                    </Button>
+                    <ContactModal/>
                 </HStack>
             </Flex>
-            <Avatar w={["16rem"]} h={["16rem"]} name="André Altoé" src="./images/profile.png" />
+            <Avatar w={["16rem"]} h={["16rem"]} name="André Altoé" src="./images/profile.png" mt={["3rem","0"]}/>
         </Flex>
     )
 }
