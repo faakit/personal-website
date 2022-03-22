@@ -1,0 +1,41 @@
+{
+    "item": [
+        {
+            "title": "Ig.News",
+            "description": "Projeto feito durante o curso Ignite da RocketSeat, nele é possível ver fundamentos do NextJS com SSR e SSG, além de integrações com Prismic para criação do blog, autenticação social com Github, banco de dados remoto utilizando FaunaDB e o gateway de pagamentos do Stripe.",
+            "technologies": ["Typescript","Next.JS","SASS", "Next Auth"],
+            "sourceHref": "https://github.com/faakit/ignews",
+            "avatarName": "Ig News"
+        },
+        {
+            "title": "Dowhile 2021",
+            "description": "Website feito durante a NLW 06 promovida pela RocketSeat, onde foi feito tando o front-end quanto o back-end da aplicação para que usuários escrevam suas expectativas com o evento e o comentário seja visto em tempo real!",
+            "image": "./images/dowhile.png",
+            "technologies": ["Typescript","Vite JS","SASS", "JWT", "Socket.io"],
+            "sourceHref": "https://github.com/faakit/Dowhile-2021"
+        },
+        {
+            "title": "CT Junior",
+            "description": "Website institucional feito para a CT Junior, com front em React e NextJS e back-end utilizando do headless cms Strapi",
+            "image": "./images/ctjunior.png",
+            "technologies": ["Typescript","Next.JS","SASS", "Strapi"],
+            "sourceHref": "https://github.com/CT-junior/Website-CT",
+            "deployHref": "https://ctjunior.com.br"
+        },
+        {
+            "title": "Space Invaders",
+            "description": "Projeto feito para uma matéria da faculdade onde foi criado uma cópia do clássico \"Space invaders\", porém com monstros infinitos e muito brilho, além de uma trilha sonora magnificente!",
+            "image": "./images/spaceinvaders.png",
+            "technologies": ["Javascript"],
+            "sourceHref": "https://github.com/faakit/Javascript-Space-Invaders",
+            "deployHref": "https://faakit.github.io/Javascript-Space-Invaders/"
+        },
+        {
+            "title": "Este site",
+            "description": "Num belo dia acordei e pensei \"Preciso fazer um site de portfolio\", e aqui estamos. :)",
+            "image": "./images/personalwebsite.png",
+            "technologies": ["Typescript","Next.JS","Chakra UI"],
+            "sourceHref": "https://github.com/faakit/personal-website"
+        }        
+    ]
+}

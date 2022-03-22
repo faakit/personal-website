@@ -4,7 +4,7 @@ To implement:
 
 [x] Contato modal
 
-[ ] Portfolio Modal and Jobs
+[x] Portfolio Modal and Jobs
 
 [x] Responsivity
 

@@ -1,6 +1,7 @@
 import { Avatar, Button, Flex, HStack, Icon, Text } from "@chakra-ui/react";
 import { RiArchiveFill, RiGithubFill, RiLinkedinBoxFill } from "react-icons/ri";
 import { ContactModal } from "../ContactModal";
+import { PortfolioModal } from "../PortfolioModal";
 import { IconLink } from "./IconLink";
 
 export function AboutMe() {
@@ -28,19 +29,7 @@ export function AboutMe() {
                     <IconLink href="https://github.com/faakit" icon={RiGithubFill} />
                 </HStack>
                 <HStack spacing="8">
-                    <Button
-                        size="lg"
-                        variant="outline"
-                        leftIcon={<Icon as={RiArchiveFill} />}
-                        fontWeight="400"
-                        color="gray.700"
-                        _hover={{
-                            bgColor: "gray.300"
-                        }}
-                        boxShadow="xl"
-                    >
-                        Portfolio
-                    </Button>
+                    <PortfolioModal/>
                     <ContactModal/>
                 </HStack>
             </Flex>
