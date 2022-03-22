@@ -3,7 +3,7 @@ import React from "react";
 import { RiArchiveFill } from "react-icons/ri";
 import { PortfolioItem } from "./PortfolioItem";
 
-import dataJson from "./portfolioItems.json"
+import * as dataJson from "./PortfolioItems.json";
 
 interface data {
     item: {
