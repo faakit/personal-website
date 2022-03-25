@@ -10,8 +10,8 @@ interface SingnatureProps {
 
 export function Signatures({ signatures }: SingnatureProps) {
     return (
-        <Flex mt="-5rem" align="center" direction="column">
-            <Text fontSize="4xl" color="white" fontFamily="monospace" pb="8">
+        <Flex mt={["2rem", "-5rem"]} align="center" direction="column">
+            <Text textAlign="center" fontSize="4xl" color="white" fontFamily="monospace" pb="8">
                 Galeria de Assinaturas
             </Text>
             <Flex

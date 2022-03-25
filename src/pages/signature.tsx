@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Canvas from "../components/Canvas";
 import { PageCard } from "../components/PageCard";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { GetStaticProps } from "next";
 import { Signatures } from "../components/Signatures";
@@ -16,24 +16,29 @@ interface SignatureProps {
     }[];
 }
 
-export default function Signature({ signatures }:SignatureProps) {
+export default function Signature({ signatures }: SignatureProps) {
     const [image, setImage] = useState('');
     const canvasRef = useRef(null);
 
+    const isWideVersion = useBreakpointValue({
+        base: false,
+        lg: true
+    })
+
     useEffect(() => {
-        async function postSignature(image:string){
-            const rawResponse = await fetch('http://localhost:3000/api/gallery', 
-            {
-                method: "POST",
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({"image":image})
-            });
+        async function postSignature(image: string) {
+            const rawResponse = await fetch('http://localhost:3000/api/gallery',
+                {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ "image": image })
+                });
             const response = await rawResponse.json();
 
             console.log(response);
         }
 
-        if(!!image) {
+        if (!!image) {
             postSignature(image);
         }
     }, [image]);
@@ -50,24 +55,26 @@ export default function Signature({ signatures }:SignatureProps) {
                         justify="center"
                         direction="column"
                     >
+                        {!!isWideVersion && <> 
                         <Text fontSize="xl" color="gray.700" pb="8">
                             Faça sua assinatura no quadro abaixo e faça parte da minha história! :)
                         </Text>
-                        <Box backgroundColor="gray.300" borderRadius="4">
-                            <Canvas
-                                width={600}
-                                height={300}
-                                setData={setImage}
-                                parentCanvasRef={canvasRef}
-                            />
-                        </Box>
-                        <Flex pt="8">
-                            <Button colorScheme="blue" onClick={() => canvasRef.current()}>Enviar!</Button>
-                            {typeof window && <Button ml="8" onClick={() => window.location.reload()}>Apagar</Button>}
-                        </Flex>
+                            <Box backgroundColor="gray.300" borderRadius="4">
+                                <Canvas
+                                    width={600}
+                                    height={300}
+                                    setData={setImage}
+                                    parentCanvasRef={canvasRef}
+                                />
+                            </Box>
+                            <Flex pt="8">
+                                <Button colorScheme="blue" onClick={() => canvasRef.current()}>Enviar!</Button>
+                                {typeof window && <Button ml="8" onClick={() => window.location.reload()}>Apagar</Button>}
+                            </Flex>
+                        </>}
                     </Flex>
                 </PageCard>
-                <Signatures signatures={signatures}/>
+                <Signatures signatures={signatures} />
             </main>
         </>
     )
