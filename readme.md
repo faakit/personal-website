@@ -8,7 +8,8 @@ To implement:
 
 [x] Responsivity
 
-[x] Signatures page
+[ ] Signatures page
+    - Cookie to prevent multiple signatures
 
 [ ] Past Experience
 

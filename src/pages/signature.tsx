@@ -14,9 +14,10 @@ interface SignatureProps {
         imgId: string;
         image: string;
     }[];
+    baseURL: string;
 }
 
-export default function Signature({ signatures }: SignatureProps) {
+export default function Signature({ signatures, baseURL }: SignatureProps) {
     const [image, setImage] = useState('');
     const canvasRef = useRef(null);
 
@@ -27,15 +28,18 @@ export default function Signature({ signatures }: SignatureProps) {
 
     useEffect(() => {
         async function postSignature(image: string) {
-            const rawResponse = await fetch('http://localhost:3000/api/gallery',
+            const rawResponse = await fetch(baseURL + '/api/gallery',
                 {
                     method: "POST",
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ "image": image })
                 });
-            const response = await rawResponse.json();
 
-            console.log(response);
+            alert("Enviado!!");
+            
+            if(typeof window) {
+                window.location.reload();
+            }
         }
 
         if (!!image) {
@@ -94,7 +98,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
     return {
         props: {
-            signatures: resultJson
+            signatures: resultJson,
+            baseURL: process.env.THISBASEURL
         },
         revalidate: 20 // 20 seconds
     }
