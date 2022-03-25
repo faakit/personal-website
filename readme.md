@@ -8,6 +8,8 @@ To implement:
 
 [x] Responsivity
 
+[x] Signatures page
+
 [ ] Past Experience
 
 [ ] EN Translation

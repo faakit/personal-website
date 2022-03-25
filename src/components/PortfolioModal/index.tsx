@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider, Flex, HStack, Icon, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, VStack } from "@chakra-ui/react";
+import { Button, Divider, Icon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, useDisclosure, VStack } from "@chakra-ui/react";
 import React from "react";
 import { RiArchiveFill } from "react-icons/ri";
 import { PortfolioItem } from "./PortfolioItem";
