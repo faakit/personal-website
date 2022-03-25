@@ -6,6 +6,9 @@ import { useEffect, useRef, useState } from "react";
 import { GetStaticProps } from "next";
 import { Signatures } from "../components/Signatures";
 
+import { fauna } from "../services/fauna";
+import { query as q } from 'faunadb';
+
 interface SignatureProps {
     signatures: {
         imgId: string;
@@ -71,17 +74,20 @@ export default function Signature({ signatures }:SignatureProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-    const signatures = await fetch(process.env.BASEURL + '/api/gallery')
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => {
-        return data
+    const faunaQuery = await fauna.query(
+        q.Map(
+            q.Paginate(q.Match(q.Index('image'))),
+            q.Lambda(x => q.Get(x))
+        )
+    ) as any;
+
+    const resultJson = faunaQuery.data.map((image) => {
+        return image.data;
     })
 
     return {
         props: {
-            signatures
+            signatures: resultJson
         },
         revalidate: 20 // 20 seconds
     }

@@ -19,21 +19,6 @@ export default async function handle(request: NextApiRequest, response: NextApiR
         return response.status(200).json(faunaQuery);
     } 
     
-    else if (request.method === "GET") {
-        const faunaQuery = await fauna.query(
-            q.Map(
-                q.Paginate(q.Match(q.Index('image'))),
-                q.Lambda(x => q.Get(x))
-            )
-        ) as any;
-
-        const resultJson = faunaQuery.data.map((image) => {
-            return image.data;
-        })
-
-        return response.status(200).json(resultJson);
-    } 
-    
     else {
         return response.status(400).json({ error: "invalid method" });
     }
