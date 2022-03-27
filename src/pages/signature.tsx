@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Head from "next/head";
 import Canvas from "../components/Canvas";
 import { PageCard } from "../components/PageCard";
-import { Box, Button, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useBreakpointValue, useToast } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { GetStaticProps } from "next";
 import { Signatures } from "../components/Signatures";
@@ -19,31 +20,59 @@ interface SignatureProps {
 
 export default function Signature({ signatures, baseURL }: SignatureProps) {
     const [image, setImage] = useState('');
+    const [isSubmiting, setIsSubmiting] = useState(false);
+    const [alreadySent, setAlreadySent] = useState(false);
+    const toast = useToast();
     const canvasRef = useRef(null);
 
     const isWideVersion = useBreakpointValue({
-        base: false,
-        lg: true
+        sm: false,
+        md: true
     })
 
     useEffect(() => {
-        async function postSignature(image: string) {
-            const rawResponse = await fetch(baseURL + '/api/gallery',
-                {
-                    method: "POST",
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ "image": image })
-                });
+        const sent = localStorage.getItem('@AndreAltoe:signature');
+        !!sent ? setAlreadySent(true) : null;
+    }, [])
 
-            alert("Enviado!!");
-            
-            if(typeof window) {
-                window.location.reload();
+    useEffect(() => {
+        async function postSignature(image: string) {
+            try {
+                await fetch(baseURL + '/api/gallery',
+                    {
+                        method: "POST",
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ "image": image })
+                    });
+
+                toast({
+                    title: 'Enviado!',
+                    description: "Você poderá ver sua assinatura abaixo em instantes!!",
+                    status: 'success',
+                    duration: 9000,
+                    isClosable: true,
+                })
+
+                localStorage.setItem('@AndreAltoe:signature', 'true');
+                setIsSubmiting(false);
+                setAlreadySent(true);
+                if (typeof window) {
+                    window.location.reload();
+                }
+            } catch (error) {
+                toast({
+                    title: 'Erro!',
+                    description: error,
+                    status: 'error',
+                    duration: 9000,
+                    isClosable: true,
+                })
             }
         }
 
         if (!!image) {
             postSignature(image);
+            setIsSubmiting(true);
         }
     }, [image]);
 
@@ -59,10 +88,13 @@ export default function Signature({ signatures, baseURL }: SignatureProps) {
                         justify="center"
                         direction="column"
                     >
-                        {!!isWideVersion && <> 
-                        <Text fontSize="xl" color="gray.700" pb="8">
-                            Faça sua assinatura no quadro abaixo e faça parte da minha história! :)
+                        <Text fontSize="xl" color="gray.700" pt="8">
+                                Assinaturas podem ser feitas 1 vez e apenas no computador, use com sabedoria.
                         </Text>
+                        {!!isWideVersion && !alreadySent && <>
+                            <Text fontSize="xl" color="gray.700" pb="8">
+                                Faça sua assinatura no quadro abaixo e faça parte da minha história! :)
+                            </Text>
                             <Box backgroundColor="gray.300" borderRadius="4">
                                 <Canvas
                                     width={600}
@@ -72,7 +104,13 @@ export default function Signature({ signatures, baseURL }: SignatureProps) {
                                 />
                             </Box>
                             <Flex pt="8">
-                                <Button colorScheme="blue" onClick={() => canvasRef.current()}>Enviar!</Button>
+                                <Button
+                                    colorScheme="blue"
+                                    onClick={() => canvasRef.current()}
+                                    isLoading={isSubmiting}
+                                >
+                                    Enviar!
+                                </Button>
                                 {typeof window && <Button ml="8" onClick={() => window.location.reload()}>Apagar</Button>}
                             </Flex>
                         </>}
